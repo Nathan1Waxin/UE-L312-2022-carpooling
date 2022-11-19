@@ -51,13 +51,23 @@ class covoiturage
         $this->availableplace = $available_place;
     }
 
-    public function getBirthday(): DateTime
+    public function getDate(): DateTime
     {
-        return $this->birthday;
+        return $this->date;
     }
 
-    public function setBirthday(DateTime $birthday): void
+    public function setDate(DateTime $date): void
     {
-        $this->birthday = $birthday;
+        $this->date = $date;
+    }
+
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    public function set($available_place): void
+    {
+        $this->availableplace = $available_place;
     }
 }
