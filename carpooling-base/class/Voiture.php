@@ -7,14 +7,16 @@ class Voiture
 {
 
     // Déclaraition des attributs
+    private $id;
     private $model;
     private $couleur;
     private $vitesseMax;
 
     
     // Le constructeur de la classe voiture, elle sera ensuite exécutée pour initaliser les attributs de la classe.
-    public function __construct($model,$couleur,$vitesseMax)
+    public function __construct($id,$model,$couleur,$vitesseMax)
     {
+        $this->id = $id;
         $this->model = $model;
         $this->couleur = $couleur;
         $this->vitesseMax = $vitesseMax;
@@ -28,6 +30,16 @@ class Voiture
     }
 
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+    
     //cette méthode retourne le model de la voiture
     public function getModel() : string
     {
