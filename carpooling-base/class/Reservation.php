@@ -11,6 +11,17 @@ class covoiturage
     private $available_place;
     private $price;
 
+    // Le constructeur de la classe reservation, elle sera ensuite exécutée pour initaliser les attributs de la classe.
+    public function __construct($id,$pointstart,$pointend,$date,$available_place,$price)
+    {
+        $this->id = $id;
+        $this->pointstart = $pointstart;
+        $this->pointend = $pointend;
+        $this->date = $date;
+        $this->available_place = $available_place;
+        $this->price = $price;
+    }
+
     public function getId(): string
     {
         return $this->id;
@@ -43,12 +54,12 @@ class covoiturage
 
     public function getAvailableplace(): int
     {
-        return $this->availableplace;
+        return $this->available_place;
     }
 
     public function setAvailableplace($available_place): void
     {
-        $this->availableplace = $available_place;
+        $this->available_place = $available_place;
     }
 
     public function getDate(): DateTime
@@ -66,7 +77,7 @@ class covoiturage
         return $this->price;
     }
 
-    public function setPrice($): void
+    public function setPrice($price): void
     {
         $this->price = $price;
     }

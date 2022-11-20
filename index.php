@@ -1,3 +1,3 @@
 <?php
-echo "salut je m'app abdel.;
+echo "salut je m'app abdel.";
 ?>
