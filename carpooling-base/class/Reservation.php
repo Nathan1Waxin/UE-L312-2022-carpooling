@@ -9,7 +9,7 @@ class covoiturage
     private $pointend;
     private $date;
     private $available_place;
-    private $price
+    private $price;
 
     public function getId(): string
     {

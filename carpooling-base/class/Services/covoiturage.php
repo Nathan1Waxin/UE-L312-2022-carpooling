@@ -5,11 +5,9 @@ namespace covoiturage;
 class covoiturage
 {
     private $id;
-    private $pointstart;
-    private $pointend;
-    private $date;
-    private $available_place;
-    private $price
+    private $nomentreprise;
+    private $adresse;
+    private $datefondation;
 
     public function getId(): string
     {
@@ -21,14 +19,14 @@ class covoiturage
         $this->id = $id;
     }
 
-    public function getPointstart(): string
+    public function getNomentreprise(): string
     {
-        return $this->pointstart;
+        return $this->nomentreprise;
     }
 
-    public function setPointstart(string $pointstart): void
+    public function setNomentreprise(string $nomentreprise): void
     {
-        $this->pointstart = $pointstart;
+        $this->nomentreprise = $nomentreprise;
     }
 
     public function getPointend(): string
@@ -41,33 +39,23 @@ class covoiturage
         $this->pointend = $pointend;
     }
 
-    public function getAvailableplace(): int
+    public function getAdresse(): string
     {
-        return $this->availableplace;
+        return $this-> adresse;
     }
 
-    public function setAvailableplace($available_place): void
+    public function setAdresse( string $adresse): void
     {
-        $this->availableplace = $available_place;
+        $this-> adresse = $adresse;
     }
 
-    public function getDate(): DateTime
+    public function getDatefondation(): DateTime
     {
-        return $this->date;
+        return $this->datefondation;
     }
 
-    public function setDate(DateTime $date): void
+    public function setDatefondation(DateTime $datefondation): void
     {
-        $this->date = $date;
-    }
-
-    public function getPrice(): int
-    {
-        return $this->price;
-    }
-
-    public function set($available_place): void
-    {
-        $this->availableplace = $available_place;
+        $this->datefondation = $datefondation;
     }
 }
