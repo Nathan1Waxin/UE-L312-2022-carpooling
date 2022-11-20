@@ -23,7 +23,7 @@ class ConvoituragesController
                 null,
                 $_POST['nomentreprise'],
                 $_POST['adresse'],
-                $_POST['datefondation'],
+                $_POST['datefondation']
             );
             if ($isOk) {
                 $html = 'Entreprise créé avec succès.';
@@ -70,19 +70,18 @@ class ConvoituragesController
             isset($_POST['nomentreprise']) &&
             isset($_POST['adresse']) &&
             isset($_POST['datefondation'])) {
-            // Update the user :
-            $usersService = new UsersService();
-            $isOk = $usersService->setUser(
+            // Update the covoiturage :
+            $CovoituragesService = new CovoituragesService();
+            $isOk = $CovoituragesService->setCovoiturage(
                 $_POST['id'],
-                $_POST['firstname'],
-                $_POST['lastname'],
-                $_POST['email'],
-                $_POST['birthday']
+                $_POST['nomentreprise'],
+                $_POST['adresse'],
+                $_POST['datefondation']
             );
             if ($isOk) {
-                $html = 'Utilisateur mis à jour avec succès.';
+                $html = 'Entreprise mis à jour avec succès.';
             } else {
-                $html = 'Erreur lors de la mise à jour de l\'utilisateur.';
+                $html = 'Erreur lors de la mise à jour de l\'Entreprise.';
             }
         }
 
@@ -90,21 +89,21 @@ class ConvoituragesController
     }
 
     /**
-     * Delete an user.
+     * Delete an covoiturage.
      */
-    public function deleteUser(): string
+    public function deleteCovoiturage(): string
     {
         $html = '';
 
         // If the form have been submitted :
         if (isset($_POST['id'])) {
-            // Delete the user :
-            $usersService = new UsersService();
-            $isOk = $usersService->deleteUser($_POST['id']);
+            // Delete the Covoiturage :
+            $CovoituragesService = new CovoituragesService();
+            $isOk = $CovoituragesService ->deleteCovoiturage($_POST['id']);
             if ($isOk) {
-                $html = 'Utilisateur supprimé avec succès.';
+                $html = 'Entreprise supprimé avec succès.';
             } else {
-                $html = 'Erreur lors de la supression de l\'utilisateur.';
+                $html = 'Erreur lors de la supression de l\'Entrerpise.';
             }
         }
 
