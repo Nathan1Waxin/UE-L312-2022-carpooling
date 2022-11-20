@@ -91,19 +91,19 @@ class VoitureController
     /**
      * Delete an Voiture.
      */
-    public function deleteUser(): string
+    public function deleteVoiture(): string
     {
         $html = '';
 
         // If the form have been submitted :
         if (isset($_POST['id'])) {
             // Delete the user :
-            $usersService = new UsersService();
-            $isOk = $usersService->deleteUser($_POST['id']);
+            $VoitureService = new VoitureService();
+            $isOk = $VoitureService->deleteVoiture($_POST['id']);
             if ($isOk) {
-                $html = 'Utilisateur supprimé avec succès.';
+                $html = 'Voiture supprimé avec succès.';
             } else {
-                $html = 'Erreur lors de la supression de l\'utilisateur.';
+                $html = 'Erreur lors de la supression de la Voiture.';
             }
         }
 
