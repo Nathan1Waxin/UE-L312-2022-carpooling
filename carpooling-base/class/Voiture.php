@@ -2,7 +2,9 @@
 
 namespace App;
 
-class Voiture{
+
+class Voiture
+{
 
     // Déclaraition des attributs
     private $model;

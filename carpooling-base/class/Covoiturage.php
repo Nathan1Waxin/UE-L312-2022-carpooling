@@ -62,12 +62,12 @@ class Covoiturage
         $this->available_place = $available_place;
     }
 
-    public function getDate(): DateTime
+    public function getDate()
     {
         return $this->date;
     }
 
-    public function setDate(DateTime $date): void
+    public function setDate($date): void
     {
         $this->date = $date;
     }
