@@ -1,5 +1,6 @@
 <?php 
-namespace Voiture;
+
+namespace App;
 
 class Voiture{
 

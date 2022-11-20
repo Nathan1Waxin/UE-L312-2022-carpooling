@@ -1,8 +1,8 @@
 <?php
 
-namespace covoiturage;
+namespace App;
 
-class covoiturage
+class Covoiturage
 {
     private $id;
     private $pointstart;
