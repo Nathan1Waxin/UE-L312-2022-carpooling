@@ -14,9 +14,9 @@ class ReservationsController
         $html = '';
 
         // If the form have been submitted :
-        if (isset($_POST['model']) &&
-            isset($_POST['couleur']) &&
-            isset($_POST['vitesseMax'])) {
+        if (isset($_POST['name_client']) &&
+            isset($_POST['tele_client']) &&
+            isset($_POST['mail_client'])) {
             // Creation de la reservation :
             $reservationsService = new ReservationsService();
             $isOk = $reservationsService->setReservation(
