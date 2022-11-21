@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Voiture;
+use App\Services\VoituresService;
 
-class VoitureController
+class VoituresController
 {
     /**
      * Return the html for the create action.
@@ -17,9 +17,9 @@ class VoitureController
         if (isset($_POST['model']) &&
             isset($_POST['couleur']) &&
             isset($_POST['vitesseMax'])) {
-            // Create the user :
-            $voituresService = new Voiture(null,null,null,null);
-            $isOk = $voituresService ->setVoiture(
+            // Creation de la voiture :
+            $voituresService = new VoituresService();
+            $isOk = $voituresService->setVoiture(
                 null,
                 $_POST['model'],
                 $_POST['couleur'],
@@ -38,28 +38,28 @@ class VoitureController
     /**
      * Return the html for the read action.
      */
-    public function getVoiture(): string
+    public function getVoitures(): string
     {
         $html = '';
 
         // Get all voitures :
-        $VoituresService = new VoituresService();
-        $voitures = $VoituresService -> getVoitures();
+        $voituresService = new VoituresService();
+        $voitures = $voituresService->getVoitures();
 
         // Get html :
-        foreach ($voitures as $voitures) {
+        foreach ($voitures as $voiture) {
             $html .=
-                '#' . $voitures->getId() . ' ' .
-                $voitures->getModel() . ' ' .
-                $voitures->getCouleur() . ' ' .
-                $voitures->getVitesseMax() . '<br />';
+                '#' . $voiture->getId() . ' ' .
+                $voiture->getModel() . ' ' .
+                $voiture->getCouleur() . ' ' .
+                $voiture->getVitesseMax() . ' ' . '<br />';
         }
 
         return $html;
     }
 
     /**
-     * Update the voiture.
+     * mettre à jour la voiture
      */
     public function updateVoiture(): string
     {
@@ -70,16 +70,16 @@ class VoitureController
             isset($_POST['model']) &&
             isset($_POST['couleur']) &&
             isset($_POST['vitesseMax'])) {
-            // Update the voiture :
-            $VoitureService = new VoitureService();
-            $isOk = $VoitureService->setVoiture(
+            // mettre à jour la voiture
+            $voituresService = new VoituresService();
+            $isOk = $voituresService->setVoiture(
                 $_POST['id'],
                 $_POST['model'],
                 $_POST['couleur'],
                 $_POST['vitesseMax']
             );
             if ($isOk) {
-                $html = 'Voiture mis à jour avec succès.';
+                $html = 'voiture mise à jour avec succès.';
             } else {
                 $html = 'Erreur lors de la mise à jour de la voiture.';
             }
@@ -89,7 +89,7 @@ class VoitureController
     }
 
     /**
-     * Delete an Voiture.
+     * supprimer une voiture
      */
     public function deleteVoiture(): string
     {
@@ -97,13 +97,13 @@ class VoitureController
 
         // If the form have been submitted :
         if (isset($_POST['id'])) {
-            // Delete the user :
-            $VoitureService = new VoitureService();
-            $isOk = $VoitureService->deleteVoiture($_POST['id']);
+            // supprimer la voiture
+            $voituresService = new VoituresService();
+            $isOk = $voituresService->deleteVoiture($_POST['id']);
             if ($isOk) {
                 $html = 'Voiture supprimé avec succès.';
             } else {
-                $html = 'Erreur lors de la supression de la Voiture.';
+                $html = 'Erreur lors de la supression de la voiture';
             }
         }
 
