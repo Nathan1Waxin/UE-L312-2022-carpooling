@@ -18,7 +18,7 @@ class VoitureController
             isset($_POST['couleur']) &&
             isset($_POST['vitesseMax'])) {
             // Create the user :
-            $voituresService = new VoituresService();
+            $voituresService = new Voiture(null,null,null,null);
             $isOk = $voituresService ->setVoiture(
                 null,
                 $_POST['model'],

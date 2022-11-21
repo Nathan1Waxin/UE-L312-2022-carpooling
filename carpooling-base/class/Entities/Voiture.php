@@ -1,6 +1,6 @@
 <?php 
 
-namespace App;
+namespace App\Entities;
 
 
 class Voiture
@@ -14,13 +14,13 @@ class Voiture
 
     
     // Le constructeur de la classe voiture, elle sera ensuite exécutée pour initaliser les attributs de la classe.
-    public function __construct($id,$model,$couleur,$vitesseMax)
-    {
-        $this->id = $id;
-        $this->model = $model;
-        $this->couleur = $couleur;
-        $this->vitesseMax = $vitesseMax;
-    }
+    // public function __construct($id,$model,$couleur,$vitesseMax)
+    // {
+    //     $this->id = $id;
+    //     $this->model = $model;
+    //     $this->couleur = $couleur;
+    //     $this->vitesseMax = $vitesseMax;
+    // }
 
 
     // le but de cette fonction est de retourner toute les informations sur la voiture
@@ -75,14 +75,14 @@ class Voiture
 
 
     //cette méthode retourne le vitesse maximum de la voiture
-    public function getVitesseMaxi() : int
+    public function getVitesseMax() : int
     {
         return $this->vitesseMaxi;
     }
 
 
     //cette méthode change la valeur de la vitesse de la voiture. la vitesse max de la voiture doit être généralement entre 60 et 500.
-    public function setVitesse($vitesseX) : void
+    public function setVitesseMax($vitesseX) : void
     {
         if($vitesseX > 60 && $vitesseX < 500) 
         {

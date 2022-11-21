@@ -104,4 +104,87 @@ class DataBaseService
 
         return $isOk;
     }
+
+    // ___________________________________________________________________________________________________________
+    // ___________________________________________________________________________________________________________
+    /**
+     * Créer une voiture.
+     */
+    public function createVoiture(String $model, string $couleur, int $vitesseMax): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'model' => $model,
+            'couleur' => $couleur,
+            'vitesseMax' => $vitesseMax,
+        ];
+        $sql = 'INSERT INTO users (model, couleur, vitesseMax) VALUES (:model, :couleur, :vitesseMax)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * retourner toutes les voitures
+     */
+    public function getVoitures(): array
+    {
+        $voitures = [];
+
+        $sql = 'SELECT * FROM voitures';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $voitures = $results;
+        }
+
+        return $voitures;
+    }
+
+    /**
+     * mettre à jour une voiture.
+     */
+    public function updateVoiture(int $id, string $model, string $couleur, int $vitesseMax): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'model' => $model,
+            'couleur' => $couleur,
+            'vitesseMax' => $vitesseMax,
+        ];
+        $sql = 'UPDATE voitures SET model = :model, couleur = :couleur, vitesseMax = :vitesseMax WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Supprimer une voiture.
+     */
+    public function deleteVoiture(int $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM voitures WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    // ___________________________________________________________________________________________________________
+    // ___________________________________________________________________________________________________________
+
+
+
+    // ___________________________________________________________________________________________________________
+    // ___________________________________________________________________________________________________________
 }
