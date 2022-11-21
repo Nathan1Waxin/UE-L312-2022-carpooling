@@ -1,6 +1,6 @@
 <?php 
 
-namespace App;
+namespace App\Entities;
 
 
 class Reservation
@@ -8,23 +8,18 @@ class Reservation
 
     // Déclaraition des attributs
     private $id;
-    private $id_voiture;
-    private $id_covoiturage;
     private $name_client;
     private $tele_client;
-    private $mail_client 
+    private $mail_client;
 
-    
     // Le constructeur de la classe Reservation, elle sera ensuite exécutée pour initaliser les attributs de la classe.
-    public function __construct($id,$id_voiture,$id_covoiturage,$name_client,$tele_client,$mail_client)
-    {
-        $this->id = $id;
-        $this->id_voiture = $id_voiture;
-        $this->id_covoiturage = $id_covoiturage;
-        $this->name_client = $name_client;
-        $this->tele_client = $tele_client;
-        $this->mail_client = $mail_client;
-    }
+    // public function __construct($id,$name_client,$tele_client,$mail_client)
+    // {
+    //     $this->id = $id;
+    //     $this->name_client = $name_client;
+    //     $this->tele_client = $tele_client;
+    //     $this->mail_client = $mail_client;
+    // }
 
 
     public function getId() : int
@@ -35,28 +30,6 @@ class Reservation
     public function setId($id) : void
     {
         $this->id = $id;
-    }
-
-
-    public function getIdVoiture() : int
-    {
-        return $this->id_voiture;
-    }
-
-    public function setIdVoiture($id_voiture) : void
-    {
-        $this->id_voiture = $id_voiture;
-    }
-
-
-    public function getIdCovoiturage() : int
-    {
-        return $this->id_covoiturage;
-    }
-
-    public function setIdCovoiturage($id_covoiturage) : void
-    {
-        $this->id_covoiturage = $id_covoiturage;
     }
 
 

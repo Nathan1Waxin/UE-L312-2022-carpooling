@@ -181,17 +181,10 @@ class DataBaseService
     }
 
     // ___________________________________________________________________________________________________________
-    // _______________________________________________________Covoiturage_____________________________________________
+    // _______________________________________________________Covoiturage_________________________________________
     /**
      * Créer une annonce de covoiturage.
      */
-
-    private $id;
-    private $pointstart;
-    private $pointend;
-    private $date;
-    private $available_place;
-    private $price;
 
     public function createCovoiturage(String $pointstart, string $pointend, DateTime $date, int $available_place, int $price): bool
     {
@@ -269,5 +262,81 @@ class DataBaseService
 
 
     // ___________________________________________________________________________________________________________
-    // ___________________________________________________________________________________________________________
+    // ____________________________________________Reservation____________________________________________________
+
+     /**
+     * nouvelle réservation   
+     */
+
+
+    public function createReservation(String $name_client, int $tele_client, string $mail_client): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'name_client' => $name_client,
+            'tele_client' => $tele_client,
+            'mail_client' => $mail_client,
+        ];
+        $sql = 'INSERT INTO reservations (name_client, tele_client, mail_client) VALUES (:name_client, :tele_client, :mail_client)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * retourner toutes les reservations
+     */
+    public function getReservation(): array
+    {
+        $reservations = [];
+
+        $sql = 'SELECT * FROM reservations';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $reservations = $results;
+        }
+
+        return $reservations;
+    }
+
+    /**
+     * mettre à jour une reservation
+     */
+    public function updateReservation($id,$name_client,$tele_client,$mail_client): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'name_client' => $name_client,
+            'tele_client' => $tele_client,
+            'mail_client' => $mail_client,
+        ];
+        $sql = 'UPDATE reservations SET name_client = :name_client, tele_client = :tele_client, mail_client = :mail_client WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Supprimer une reservation
+     */
+    public function deleteReservation(int $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM reservations WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
 }
