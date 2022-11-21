@@ -106,7 +106,7 @@ class DataBaseService
     }
 
     // ___________________________________________________________________________________________________________
-    // ___________________________________________________________________________________________________________
+    // ____________________________________________________Voiture________________________________________________
     /**
      * Créer une voiture.
      */
@@ -181,8 +181,91 @@ class DataBaseService
     }
 
     // ___________________________________________________________________________________________________________
-    // ___________________________________________________________________________________________________________
+    // _______________________________________________________Covoiturage_____________________________________________
+    /**
+     * Créer une annonce de covoiturage.
+     */
 
+    private $id;
+    private $pointstart;
+    private $pointend;
+    private $date;
+    private $available_place;
+    private $price;
+
+    public function createCovoiturage(String $pointstart, string $pointend, DateTime $date, int $available_place, int $price): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'pointstart' => $pointstart,
+            'pointend' => $pointend,
+            'date' => $date,
+            'available_place' => $available_place,
+            'price' => $price,
+        ];
+        $sql = 'INSERT INTO covoiturages (pointstart, pointend, date, available_place, price) VALUES (:pointstart, :pointend, :date, :available_place , :price)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * retourner toutes les annonces de covoiturages
+     */
+    public function getCovoiturages(): array
+    {
+        $covoiturages = [];
+
+        $sql = 'SELECT * FROM covoiturages';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $covoiturages = $results;
+        }
+
+        return $covoiturages;
+    }
+
+    /**
+     * mettre à jour une annonce de covoiturage
+     */
+    public function updateCovoiturage(int $id, String $pointstart, string $pointend, DateTime $date, int $available_place, int $price): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'pointstart' => $pointstart,
+            'pointend' => $pointend,
+            'date' => $date,
+            'available_place' => $available_place,
+            'price' => $price,
+        ];
+        $sql = 'UPDATE covoiturages SET pointstart = :pointstart, pointend = :pointend, date = :date, available_place = :available_place, price = :price WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Supprimer une annonce de covoiturage
+     */
+    public function deleteCovoiturage(int $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM covoiturages WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
 
 
     // ___________________________________________________________________________________________________________

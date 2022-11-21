@@ -2,6 +2,8 @@
 
 namespace App;
 
+use DateTime;
+
 
 class Covoiturage
 {
@@ -13,15 +15,15 @@ class Covoiturage
     private $price;
 
     // Le constructeur de la classe reservation, elle sera ensuite exécutée pour initaliser les attributs de la classe.
-    public function __construct($id,$pointstart,$pointend,$date,$available_place,$price)
-    {
-        $this->id = $id;
-        $this->pointstart = $pointstart;
-        $this->pointend = $pointend;
-        $this->date = $date;
-        $this->available_place = $available_place;
-        $this->price = $price;
-    }
+    // public function __construct($id,$pointstart,$pointend,$date,$available_place,$price)
+    // {
+    //     $this->id = $id;
+    //     $this->pointstart = $pointstart;
+    //     $this->pointend = $pointend;
+    //     $this->date = $date;
+    //     $this->available_place = $available_place;
+    //     $this->price = $price;
+    // }
 
     public function getId(): int
     {
@@ -63,12 +65,12 @@ class Covoiturage
         $this->available_place = $available_place;
     }
 
-    public function getDate()
+    public function getDate(): DateTime
     {
         return $this->date;
     }
 
-    public function setDate($date): void
+    public function setDate(DateTime $date): void
     {
         $this->date = $date;
     }
