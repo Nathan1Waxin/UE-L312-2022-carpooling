@@ -2,33 +2,37 @@
 
 namespace App\Controllers;
 
-use App\Services\UsersService;
+use App\Services\CovoituragesService;
 
-class ConvoituragesController
+class CovoituragesController  
 {
     /**
      * Return the html for the create action.
      */
-    public function createConvoiturage(): string
+    public function createCovoiturage(): string
     {
         $html = '';
 
         // If the form have been submitted :
-        if (isset($_POST['nomentreprise']) &&
-            isset($_POST['adresse']) &&
-            isset($_POST['datefondation'])) {
-            // Create the user :
-            $CovoituragesService = new CovoituragesService();
-            $isOk = $CovoituragesService->setCovoiturage(
+        if (isset($_POST['pointstart']) &&
+            isset($_POST['pointend']) &&
+            isset($_POST['date']) &&
+            isset($_POST['available_place']) &&
+            isset($_POST['price'])) {
+            // Creation de l'annonce de covoiturage :
+            $covoituragesService = new covoituragesService();
+            $isOk = $covoituragesService->setCovoiturage( 
                 null,
-                $_POST['nomentreprise'],
-                $_POST['adresse'],
-                $_POST['datefondation']
+                $_POST['pointstart'],
+                $_POST['pointend'],
+                $_POST['date'],
+                $_POST['available_place'],
+                $_POST['price']
             );
             if ($isOk) {
-                $html = 'Entreprise créé avec succès.';
+                $html = 'Annonce de covoiturage créé avec succès.';
             } else {
-                $html = 'Erreur lors de la création de l\'entreprise.';
+                $html = 'Erreur lors de la création.';
             }
         }
 
@@ -42,46 +46,51 @@ class ConvoituragesController
     {
         $html = '';
 
-        // Get all Covoiturages :
-        $CovoituragesService = new CovoituragesService();
-        $Covoiturages = $CovoituragesService->getCovoiturages();
+        // Get all annonces de covoiturages :
+        $covoituragesService = new CovoituragesService();
+        $covoiturages = $covoituragesService->getCovoiturages();
 
         // Get html :
-        foreach ($Covoiturages as $Covoiturage) {
+        foreach ($covoiturages as $covoiturage) {
             $html .=
-                '#' . $Covoiturage->getId() . ' ' .
-                $Covoiturage->getNomentreprise() . ' ' .
-                $Covoiturage->getAdresse() . ' ' .
-                $Covoiturage ->getDatefondation()->format('d-m-Y') . '<br />';
+                '#' . $covoiturage->getId() . ' ' .
+                $covoiturage->getPointstart() . ' ' .
+                $covoiturage->getPointend() . ' ' .
+                $covoiturage->getAvailableplace() . ' ' .
+                $covoiturage->getDate() . ' ' .
+                $covoiturage->getPrice() . ' ' . '<br />';
         }
 
         return $html;
     }
 
     /**
-     * Update the Covoiturages.
+     * mettre à jour l'annonce de covoiturage
      */
     public function updateCovoiturage(): string
     {
         $html = '';
 
         // If the form have been submitted :
-        if (isset($_POST['id']) &&
-            isset($_POST['nomentreprise']) &&
-            isset($_POST['adresse']) &&
-            isset($_POST['datefondation'])) {
-            // Update the covoiturage :
-            $CovoituragesService = new CovoituragesService();
-            $isOk = $CovoituragesService->setCovoiturage(
+        if (isset($_POST['pointstart']) &&
+            isset($_POST['pointend']) &&
+            isset($_POST['date']) &&
+            isset($_POST['available_place']) &&
+            isset($_POST['price'])) {
+            // mettre à jour l'annonce de covoiturage
+            $covoituragesService = new CovoituragesService();
+            $isOk = $covoituragesService->setCovoiturage(
                 $_POST['id'],
-                $_POST['nomentreprise'],
-                $_POST['adresse'],
-                $_POST['datefondation']
+                $_POST['pointstart'],
+                $_POST['pointend'],
+                $_POST['date'],
+                $_POST['available_place'],
+                $_POST['price']
             );
             if ($isOk) {
-                $html = 'Entreprise mis à jour avec succès.';
+                $html = 'annonce de covoiturage mise à jour avec succès.';
             } else {
-                $html = 'Erreur lors de la mise à jour de l\'Entreprise.';
+                $html = 'Erreur lors de la mise à jour.';
             }
         }
 
@@ -89,7 +98,7 @@ class ConvoituragesController
     }
 
     /**
-     * Delete an covoiturage.
+     * supprimer une annonce de covoiturage
      */
     public function deleteCovoiturage(): string
     {
@@ -97,13 +106,15 @@ class ConvoituragesController
 
         // If the form have been submitted :
         if (isset($_POST['id'])) {
-            // Delete the Covoiturage :
-            $CovoituragesService = new CovoituragesService();
-            $isOk = $CovoituragesService ->deleteCovoiturage($_POST['id']);
+            // supprimer l'annonce de covoiturage
+
+
+            $covoituragesService = new CovoituragesService();
+            $isOk = $covoituragesService->deleteCovoiturage($_POST['id']);
             if ($isOk) {
-                $html = 'Entreprise supprimé avec succès.';
+                $html = 'annonce supprimé avec succès.';
             } else {
-                $html = 'Erreur lors de la supression de l\'Entrerpise.';
+                $html = 'Erreur lors de la supression';
             }
         }
 
