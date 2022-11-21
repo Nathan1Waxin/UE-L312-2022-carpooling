@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Services\CovoituragesService;
 
-class CovoituragesController  
+class CovoituragesController
 {
     /**
      * Return the html for the create action.
@@ -21,7 +21,7 @@ class CovoituragesController
             isset($_POST['price'])) {
             // Creation de l'annonce de covoiturage :
             $covoituragesService = new covoituragesService();
-            $isOk = $covoituragesService->setCovoiturage( 
+            $isOk = $covoituragesService->setCovoiturage(
                 null,
                 $_POST['pointstart'],
                 $_POST['pointend'],
