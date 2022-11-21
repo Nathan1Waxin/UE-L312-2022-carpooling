@@ -1,11 +1,9 @@
-<?php 
+<?php
 
 namespace App\Entities;
 
-
 class Voiture
 {
-
     // Déclaraition des attributs
     private $id;
     private $model;
@@ -50,8 +48,7 @@ class Voiture
     //cette méthode change la valeur du model de la voiture, la methode strlen() s'assure de ne pas entrer une valeure null.
     public function setModel($modelX) : void
     {
-        if(strlen($modelX) !=0 ) 
-        {
+        if (strlen($modelX) !=0) {
             $this->model = $modelX;
         }
     }
@@ -67,8 +64,7 @@ class Voiture
     //cette méthode change la valeur de la couleur de la voiture.
     public function setCouleur($couleurX) : void
     {
-        if(strlen($couleurX) !=0 ) 
-        {
+        if (strlen($couleurX) !=0) {
             $this->couleur = $couleurX;
         }
     }
@@ -84,12 +80,8 @@ class Voiture
     //cette méthode change la valeur de la vitesse de la voiture. la vitesse max de la voiture doit être généralement entre 60 et 500.
     public function setVitesseMax($vitesseX) : void
     {
-        if($vitesseX > 60 && $vitesseX < 500) 
-        {
+        if ($vitesseX > 60 && $vitesseX < 500) {
             $this->vitesseMax = $vitesseX;
         }
     }
-
 }
-
-?>

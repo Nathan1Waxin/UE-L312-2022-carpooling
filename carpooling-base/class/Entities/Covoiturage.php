@@ -4,7 +4,6 @@ namespace App\Entities;
 
 use DateTime;
 
-
 class Covoiturage
 {
     private $id;

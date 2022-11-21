@@ -1,11 +1,9 @@
-<?php 
+<?php
 
 namespace App\Entities;
 
-
 class Reservation
 {
-
     // Déclaraition des attributs
     private $id;
     private $name_client;
@@ -64,7 +62,4 @@ class Reservation
     {
         $this->mail_client = $mail_client;
     }
-
 }
-
-?>
