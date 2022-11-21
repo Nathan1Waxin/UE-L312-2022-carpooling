@@ -15,9 +15,9 @@ class CovoituragesService
 
         $dataBaseService = new DataBaseService();
         if (empty($id)) {
-            $isOk = $dataBaseService->createCovoiturage($id,$pointstart,$pointend,$date,$available_place,$price);
+            $isOk = $dataBaseService->createCovoiturage($id, $pointstart, $pointend, $date, $available_place, $price);
         } else {
-            $isOk = $dataBaseService->updateCovoiturage($id,$pointstart,$pointend,$date,$available_place,$price);
+            $isOk = $dataBaseService->updateCovoiturage($id, $pointstart, $pointend, $date, $available_place, $price);
         }
 
         return $isOk;

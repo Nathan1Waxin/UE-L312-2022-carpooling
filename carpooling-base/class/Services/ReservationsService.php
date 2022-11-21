@@ -15,9 +15,9 @@ class ReservationsService
 
         $dataBaseService = new DataBaseService();
         if (empty($id)) {
-            $isOk = $dataBaseService->createReservation($id,$name_client,$tele_client,$mail_client);
+            $isOk = $dataBaseService->createReservation($id, $name_client, $tele_client, $mail_client);
         } else {
-            $isOk = $dataBaseService->updateReservation($id,$name_client,$tele_client,$mail_client);
+            $isOk = $dataBaseService->updateReservation($id, $name_client, $tele_client, $mail_client);
         }
 
         return $isOk;
