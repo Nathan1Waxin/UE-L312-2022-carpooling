@@ -288,7 +288,7 @@ class DataBaseService
     /**
      * retourner toutes les reservations
      */
-    public function getReservation(): array
+    public function getReservations(): array
     {
         $reservations = [];
 

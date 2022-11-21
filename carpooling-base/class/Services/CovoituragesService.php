@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Entities\Covoiturage;
-use DateTime;
 
 class CovoituragesService
 {
