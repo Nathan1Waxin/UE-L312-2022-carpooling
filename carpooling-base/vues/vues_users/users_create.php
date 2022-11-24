@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\UsersController;
+use App\Services\VoituresService;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -21,6 +22,13 @@ echo $controller->createUser();
     <br />
     <label for="birthday">Date d'anniversaire au format dd-mm-yyyy :</label>
     <input type="text" name="birthday">
+    <br />
+    <label for="voiture">Voiture(s) :</label>
+    <?php foreach ($voitures as $voiture): ?>
+        <?php $voitureName = $car->getBrand() . ' ' . $voiture->getModel() . ' ' . $voiture->getColor(); ?>
+        <input type="checkbox" name="cars[]" value="<?php echo $voiture->getId(); ?>"><?php echo $voitureName; ?>
+        <br />
+    <?php endforeach; ?>
     <br />
     <input type="submit" value="Créer un utilisateur">
 </form>

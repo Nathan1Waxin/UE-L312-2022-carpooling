@@ -27,12 +27,21 @@ class UsersController
                 $_POST['email'],
                 $_POST['birthday']
             );
-            if ($isOk) {
+
+            // Create the user cars relations :
+            $isOk = true;
+            if (!empty($_POST['voitures'])) {
+                foreach ($_POST['voitures'] as $voitureId) {
+                    $isOk = $usersService->setUserVoiture($userId, $voitureId);
+                }
+            }
+            if ($userId && $isOk) {
                 $html = 'Utilisateur créé avec succès.';
             } else {
                 $html = 'Erreur lors de la création de l\'utilisateur.';
             }
         }
+
 
         return $html;
     }
@@ -50,6 +59,12 @@ class UsersController
 
         // Get html :
         foreach ($users as $user) {
+            $voituresHtml = '';
+            if (!empty($user->getVoitures())) {
+                foreach ($user->getVoitures() as $voiture) {
+                    $voituresHtml .= $voiture->getVitesseMax() . ' ' . $voiture->getModel() . ' ' . $voiture->getColor() . ' ';
+                }
+            }
             $html .=
                 '#' . $user->getId() . ' ' .
                 $user->getFirstname() . ' ' .

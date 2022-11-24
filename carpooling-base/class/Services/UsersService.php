@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entities\Voiture;
 use App\Entities\User;
 use DateTime;
 
@@ -12,17 +13,18 @@ class UsersService
      */
     public function setUser(?string $id, string $firstname, string $lastname, string $email, string $birthday): bool
     {
-        $isOk = false;
+        $userId = '';
 
         $dataBaseService = new DataBaseService();
         $birthdayDateTime = new DateTime($birthday);
         if (empty($id)) {
-            $isOk = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime);
+            $userId = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime);
         } else {
-            $isOk = $dataBaseService->updateUser($id, $firstname, $lastname, $email, $birthdayDateTime);
+            $dataBaseService->updateUser($id, $firstname, $lastname, $email, $birthdayDateTime);
+            $userId = $id;
         }
 
-        return $isOk;
+        return $userId;
     }
 
     /**
@@ -45,6 +47,12 @@ class UsersService
                 if ($date !== false) {
                     $user->setbirthday($date);
                 }
+
+                // Get cars of this user :
+                $cars = $this->getUserVoitures($userDTO['id']);
+                $user->setVoitures($voitures);
+
+
                 $users[] = $user;
             }
         }
@@ -63,5 +71,30 @@ class UsersService
         $isOk = $dataBaseService->deleteUser($id);
 
         return $isOk;
+    }
+
+    /**
+     * Get cars of given user id.
+     */
+    public function getUserVoitures(string $userId): array
+    {
+        $userVoitures = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation users and cars :
+        $usersVoituresDTO = $dataBaseService->getUserVoitures($userId);
+        if (!empty($usersVoituresDTO)) {
+            foreach ($usersVoituresDTO as $usersVoitureDTO) {
+                $voiture = new Voiture();
+                $voiture->setId($usersVoitureDTO['id']);
+                $voiture->setModel($usersVoitureDTO['model']);
+                $voiture->setColor($usersVoitureDTO['color']);
+                $voiture->setVitesseMax($usersVoitureDTO['vitessemax']);
+                $usersVoitures[] = $voiture;
+            }
+        }
+
+        return $usersVoitures;
     }
 }
