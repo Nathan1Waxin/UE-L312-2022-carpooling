@@ -75,14 +75,14 @@ class User
         return $this;
     }
 
-    public function getVoitures(): ?array
+    public function getReservations(): ?array
     {
-        return $this->Voitures;
+        return $this->reservations;
     }
 
-    public function setVoitures(array $voitures)
+    public function setReservations(array $reservations)
     {
-        $this->voitures = $voitures;
+        $this->reservations = $reservations;
 
         return $this;
     }
