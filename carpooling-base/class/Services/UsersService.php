@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Voiture;
+use App\Entities\Reservation;
 use App\Entities\User;
 use DateTime;
 
@@ -49,8 +50,12 @@ class UsersService
                 }
 
                 // Get cars of this user :
-                $cars = $this->getUserVoitures($userDTO['id']);
+                $voitures = $this->getUserVoitures($userDTO['id']);
                 $user->setVoitures($voitures);
+
+                // Get Reservation of this user :
+                $reservations = $this->getUserReservations($userDTO['id']);
+                $user->setReservations($reservations);
 
 
                 $users[] = $user;
@@ -76,9 +81,31 @@ class UsersService
     /**
      * Get cars of given user id.
      */
+    public function getUserReservations(string $userId): array
+    {
+        $usersReservations = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation users and cars :
+        $usersReservationsDTO = $dataBaseService->getUserReservations($userId);
+        if (!empty($usersReservationsDTO)) {
+            foreach ($usersReservationsDTO as $usersReservationDTO) {
+                $reservation = new Reservation();
+                $reservation->setId($usersReservationDTO['id']);
+                $reservation->setModel($usersReservationDTO['name_client']);
+                $reservation->setColor($usersReservationDTO['tele_client']);
+                $reservation->setVitesseMax($usersReservationDTO['mail_client']);
+                $usersReservations[] = $reservation;
+            }
+        }
+
+        return $usersReservations;
+    }
+
     public function getUserVoitures(string $userId): array
     {
-        $userVoitures = [];
+        $usersVoitures = [];
 
         $dataBaseService = new DataBaseService();
 
