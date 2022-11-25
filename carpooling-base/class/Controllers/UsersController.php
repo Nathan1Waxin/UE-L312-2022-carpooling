@@ -35,6 +35,13 @@ class UsersController
                     $isOk = $usersService->setUserVoiture($userId, $voitureId);
                 }
             }
+
+            if (!empty($_POST['reservations'])) {
+                foreach ($_POST['reservations'] as $reservationId) {
+                    $isOk = $usersService->setUserReservation($userId, $reservationId);
+                }
+            }
+
             if ($userId && $isOk) {
                 $html = 'Utilisateur créé avec succès.';
             } else {
@@ -65,6 +72,14 @@ class UsersController
                     $voituresHtml .= $voiture->getVitesseMax() . ' ' . $voiture->getModel() . ' ' . $voiture->getColor() . ' ';
                 }
             }
+
+            $reservationsHtml = '';
+            if (!empty($user->getReservations())) {
+                foreach ($user->getReservations() as $reservation) {
+                    $reservationsHtml .= $reservation->getName_client() . ' ' . $voiture->getTele_client() . ' ' . $voiture->getMail_client() . ' ';
+                }
+            }
+
             $html .=
                 '#' . $user->getId() . ' ' .
                 $user->getFirstname() . ' ' .
