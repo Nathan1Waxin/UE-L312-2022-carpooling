@@ -65,6 +65,18 @@ class User
 
     public function getVoitures(): ?array
     {
+        return $this->voitures;
+    }
+
+    public function setVoitures(array $voitures)
+    {
+        $this->voitures = $voitures;
+
+        return $this;
+    }
+
+    public function getVoitures(): ?array
+    {
         return $this->Voitures;
     }
 
