@@ -27,8 +27,8 @@ echo $controller->createUser();
     <br />
     <label for="voiture">Voiture(s) :</label>
     <?php foreach ($voitures as $voiture): ?>
-        <?php $voitureName = $car->getBrand() . ' ' . $voiture->getModel() . ' ' . $voiture->getColor(); ?>
-        <input type="checkbox" name="cars[]" value="<?php echo $voiture->getId(); ?>"><?php echo $voitureName; ?>
+        <?php $voitureName = $voiture->getModel() . ' ' . $voiture->getColeur() . ' ' . $voiture->getVitesseMax(); ?>
+        <input type="checkbox" name="voiture[]" value="<?php echo $voiture->getId(); ?>"><?php echo $voitureName; ?>
         <br />
     <?php endforeach; ?>
     <br />
