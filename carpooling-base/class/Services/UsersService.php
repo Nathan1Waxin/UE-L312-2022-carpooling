@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entities\Voiture;
 use App\Entities\Reservation;
 use App\Entities\User;
+use App\Entities\Covoiturage;
 use DateTime;
 
 class UsersService
@@ -56,6 +57,10 @@ class UsersService
                 // Get Reservation of this user :
                 $reservations = $this->getUserReservations($userDTO['id']);
                 $user->setReservations($reservations);
+
+                // Get Covoiturage of this user :
+                $covoiturages = $this->getUserCovoiturages($userDTO['id']);
+                $user->setCovoiturages($covoiturages);
 
 
                 $users[] = $user;
@@ -123,5 +128,29 @@ class UsersService
         }
 
         return $usersVoitures;
+    }
+
+    public function getUserCovoiturages(string $userId): array
+    {
+        $usersCovoiturages = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation users and cars :
+        $usersCovoituragesDTO = $dataBaseService->getUserCovoiturages($userId);
+        if (!empty($usersCovoituragesDTO)) {
+            foreach ($usersCovoituragesDTO as $usersCovoiturageDTO) {
+                $covoiturage = new Reservation();
+                $covoiturage->setId($usersCovoiturageDTO['id']);
+                $covoiturage->setPointstart($usersCovoiturageDTO['pointstart']);
+                $covoiturage->setPointend($usersCovoiturageDTO['pointend']);
+                $covoiturage->setDate($usersCovoiturageDTO['Date']);
+                $covoiturage->setAvailable_place($usersCovoiturageDTO['available_place']);
+                $covoiturage->setPrice($usersCovoiturageDTO['price']);
+                $usersCovoiturages[] = $covoiturage;
+            }
+        }
+
+        return $usersCovoiturages;
     }
 }
