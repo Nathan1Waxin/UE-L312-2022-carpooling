@@ -13,6 +13,7 @@ class Covoiturage
     private $available_place;
     private $price;
     private $voitures;
+    private $reservations;
 
     // Le constructeur de la classe reservation, elle sera ensuite exécutée pour initaliser les attributs de la classe.
     // public function __construct($id,$pointstart,$pointend,$date,$available_place,$price)
@@ -93,6 +94,18 @@ class Covoiturage
     public function setVoitures(array $voitures)
     {
         $this->voitures = $voitures;
+
+        return $this;
+    }
+
+    public function getReservations(): ?array
+    {
+        return $this->reservations;
+    }
+
+    public function setReservations(array $reservations)
+    {
+        $this->reservations = $reservations;
 
         return $this;
     }
