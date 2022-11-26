@@ -29,6 +29,16 @@ class CovoituragesController
                 $_POST['available_place'],
                 $_POST['price']
             );
+            
+             // creation de la relation covoiturage et voiture :
+             $isOk = true;
+             if (!empty($_POST['voitures'])) {
+                 foreach ($_POST['voitures'] as $voitureId) {
+                     $isOk = $covoituragesService->setCovoiturageVoiture($covoiturageId, $voitureId);
+                 }
+             }
+
+
             if ($isOk) {
                 $html = 'Annonce de covoiturage créé avec succès.';
             } else {
@@ -52,6 +62,14 @@ class CovoituragesController
 
         // Get html :
         foreach ($covoiturages as $covoiturage) {
+
+            $voituresHtml = '';
+            if (!empty($user->getVoitures())) {
+                foreach ($user->getVoitures() as $voiture) {
+                    $voituresHtml .= $voiture->getVitesseMax() . ' ' . $voiture->getModel() . ' ' . $voiture->getColeur() . ' ';
+                }
+            }
+
             $html .=
                 '#' . $covoiturage->getId() . ' ' .
                 $covoiturage->getPointstart() . ' ' .
@@ -60,6 +78,8 @@ class CovoituragesController
                 $covoiturage->getDate() . ' ' .
                 $covoiturage->getPrice() . ' ' . '<br />';
         }
+
+
 
         return $html;
     }
