@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\Covoiturage;
 use App\Entities\Voiture;
+use App\Entities\Reservation;
 
 class CovoituragesService
 {
@@ -52,6 +53,10 @@ class CovoituragesService
             // Get voiture of this covoiturage :
             $voitures = $this->getCovoiturageVoitures($covoiturageDTO['id']);
             $covoiturage->setVoitures($voitures);
+
+            // Get Reservation of this covoiturage :
+            $reservations = $this->getCovoiturageReservations($covoiturageDTO['id']);
+            $covoiturage->setReservations($reservations);
         }
         return $covoiturages;
     }
@@ -99,7 +104,7 @@ class CovoituragesService
 
         $dataBaseService = new DataBaseService();
 
-        // Get relation users and cars :
+        // Get relation covoiturage and voiture :
         $covoituragesVoituresDTO = $dataBaseService->getCovoiturageVoitures($covoiturageId);
         if (!empty($covoituragesVoituresDTO)) {
             foreach ($covoituragesVoituresDTO as $covoituragesVoitureDTO) {
@@ -113,5 +118,27 @@ class CovoituragesService
         }
 
         return $covoituragesVoitures;
+    }
+
+    public function getCovoiturageReservations(string $covoiturageId): array
+    {
+        $covoituragesReservations = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation covoiturage and Reservation :
+        $covoituragesReservationsDTO = $dataBaseService->getCovoiturageReservations($covoiturageId);
+        if (!empty($covoituragesReservationsDTO)) {
+            foreach ($covoituragesReservationsDTO as $covoiturageReservationsDTO) {
+                $reservation = new Reservation();
+                $reservation->setId($covoiturageReservationsDTO['id']);
+                $reservation->setName_client($covoiturageReservationsDTO['name_client']);
+                $reservation->setTele_client($covoiturageReservationsDTO['tele_client']);
+                $reservation->setMail_client($covoiturageReservationsDTO['mail_client']);
+                $covoituragesReservations[] = $reservation;
+            }
+        }
+
+        return $covoituragesReservations;
     }
 }
