@@ -28,7 +28,7 @@ echo $controller->createCovoiturage();
     <label for="voiture">Voiture :</label>
     <?php foreach ($voitures as $voiture): ?>
         <?php $voitureName = $voiture->getModel() . ' ' . $voiture->getCouleur() . ' ' . $voiture->getViteesseMax(); ?>
-        <input type="checkbox" name="cars[]" value="<?php echo $voiture->getId(); ?>"><?php echo $voitureName; ?>
+        <input type="checkbox" name="voiture[]" value="<?php echo $voiture->getId(); ?>"><?php echo $voitureName; ?>
         <br />
     <?php endforeach; ?>
     <br />
