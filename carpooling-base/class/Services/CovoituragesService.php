@@ -45,6 +45,10 @@ class CovoituragesService
                 $covoiturages[] = $covoiturage;
             }
 
+            /* Get exemple of this covoiturage :
+            $exemples = $this->getCovoiturageExemples($covoiturageDTO['id']);
+            $covoiturage->setExemples($exemples);*/
+
             // Get voiture of this covoiturage :
             $voitures = $this->getCovoiturageVoitures($covoiturageDTO['id']);
             $covoiturage->setVoitures($voitures);
@@ -64,6 +68,30 @@ class CovoituragesService
 
         return $isOk;
     }
+
+    /*
+    public function getCovoiturageExemples(string $covoiturageId): array
+    {
+        $covoituragesExemples = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation users and exemples :
+        $covoituragesExemplesDTO = $dataBaseService->getCovoiturageExemples($covoiturageId);
+        if (!empty($covoituragesExemplesDTO)) {
+            foreach ($covoituragesExemplesDTO as $covoituragesExemplesDTO) {
+                $exemple = new Exemple();
+                $exemple->setId($covoituragesExemplesDTO['id']);
+                $exemple->setModel($covoituragesExemplesDTO['class1']);
+                $exemple->setColor($covoituragesExemplesDTO['class2']);
+                $exemple->setVitesseMax($covoituragesExemplesDTO['class3']);
+                $covoituragesExemples[] = $exemple;
+            }
+        }
+
+        return $covoituragesExemples;
+    }
+    */
 
     public function getCovoiturageVoitures(string $covoiturageId): array
     {
