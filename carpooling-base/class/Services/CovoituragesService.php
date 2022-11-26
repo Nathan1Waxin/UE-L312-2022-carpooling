@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Covoiturage;
+use App\Entities\Voiture;
 
 class CovoituragesService
 {
@@ -43,6 +44,10 @@ class CovoituragesService
                 $covoiturage->setPrice($covoiturageDTO['price']);
                 $covoiturages[] = $covoiturage;
             }
+
+            // Get voiture of this covoiturage :
+            $voitures = $this->getCovoiturageVoitures($covoiturageDTO['id']);
+            $covoiturage->setVoitures($voitures);
         }
         return $covoiturages;
     }
@@ -58,5 +63,27 @@ class CovoituragesService
         $isOk = $dataBaseService->deleteCovoiturage($id);
 
         return $isOk;
+    }
+
+    public function getCovoiturageVoitures(string $covoiturageId): array
+    {
+        $covoituragesVoitures = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation users and cars :
+        $covoituragesVoituresDTO = $dataBaseService->getCovoiturageVoitures($covoiturageId);
+        if (!empty($covoituragesVoituresDTO)) {
+            foreach ($covoituragesVoituresDTO as $covoituragesVoitureDTO) {
+                $voiture = new Voiture();
+                $voiture->setId($covoituragesVoitureDTO['id']);
+                $voiture->setModel($covoituragesVoitureDTO['model']);
+                $voiture->setColor($covoituragesVoitureDTO['coleur']);
+                $voiture->setVitesseMax($covoituragesVoitureDTO['vitessemax']);
+                $covoituragesVoitures[] = $voiture;
+            }
+        }
+
+        return $covoituragesVoitures;
     }
 }
