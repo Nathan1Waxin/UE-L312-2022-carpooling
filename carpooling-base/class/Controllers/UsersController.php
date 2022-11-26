@@ -75,7 +75,7 @@ class UsersController
             $voituresHtml = '';
             if (!empty($user->getVoitures())) {
                 foreach ($user->getVoitures() as $voiture) {
-                    $voituresHtml .= $voiture->getVitesseMax() . ' ' . $voiture->getModel() . ' ' . $voiture->getColor() . ' ';
+                    $voituresHtml .= $voiture->getVitesseMax() . ' ' . $voiture->getModel() . ' ' . $voiture->getColeur() . ' ';
                 }
             }
 
