@@ -42,6 +42,12 @@ class UsersController
                 }
             }
 
+            if (!empty($_POST['covoiturages'])) {
+                foreach ($_POST['covoiturages'] as $covoiturageId) {
+                    $isOk = $usersService->setUserCovoiturage($userId, $covoiturageId);
+                }
+            }
+
             if ($userId && $isOk) {
                 $html = 'Utilisateur créé avec succès.';
             } else {
@@ -76,7 +82,14 @@ class UsersController
             $reservationsHtml = '';
             if (!empty($user->getReservations())) {
                 foreach ($user->getReservations() as $reservation) {
-                    $reservationsHtml .= $reservation->getName_client() . ' ' . $voiture->getTele_client() . ' ' . $voiture->getMail_client() . ' ';
+                    $reservationsHtml .= $reservation->getName_client() . ' ' . $reservation->getTele_client() . ' ' . $reservation->getMail_client() . ' ';
+                }
+            }
+
+            $covoituragesHtml = '';
+            if (!empty($user->getCovoiturages())) {
+                foreach ($user->getCovoiturages() as $covoiturage) {
+                    $covoituragesHtml .= $covoiturages->getPointstart() . ' ' . $covoiturages->getPointend() . ' ' . $covoiturages->getDate() . ' ' . $covoiturages->getAvailable_place() . ' ' . $covoiturages->getPrice() . ' ';
                 }
             }
 
