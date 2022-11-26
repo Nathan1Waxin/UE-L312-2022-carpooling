@@ -121,7 +121,7 @@ class UsersService
                 $voiture = new Voiture();
                 $voiture->setId($usersVoitureDTO['id']);
                 $voiture->setModel($usersVoitureDTO['model']);
-                $voiture->setColor($usersVoitureDTO['color']);
+                $voiture->setColor($usersVoitureDTO['coleur']);
                 $voiture->setVitesseMax($usersVoitureDTO['vitessemax']);
                 $usersVoitures[] = $voiture;
             }
