@@ -29,7 +29,14 @@ class CovoituragesController
                 $_POST['available_place'],
                 $_POST['price']
             );
-            
+
+            /* creation relation exemple
+            if (!empty($_POST['exemples'])) {
+                 foreach ($_POST['exemples'] as $exempleId) {
+                     $isOk = $covoituragesService->setCovoiturageExemple($covoiturageId, $exempleId);
+                 }
+             }
+            */
              // creation de la relation covoiturage et voiture :
              $isOk = true;
              if (!empty($_POST['voitures'])) {
@@ -39,7 +46,7 @@ class CovoituragesController
              }
 
 
-            if ($isOk) {
+            if ($covoiturageId && $isOk) {
                 $html = 'Annonce de covoiturage créé avec succès.';
             } else {
                 $html = 'Erreur lors de la création.';
@@ -63,9 +70,17 @@ class CovoituragesController
         // Get html :
         foreach ($covoiturages as $covoiturage) {
 
+            /* exemple get html relation
+            $exemplesHtml = '';
+            if (!empty($covoiturage->getExemples())) {
+                foreach ($covoiturage->getExemples() as $exemple) {
+                    $ExemplesHtml .= $exemple->getClass1() . ' ' . $voiture->getClass2() . ' ' . $voiture->getClass3() . ' ';
+                }
+            }*/
+
             $voituresHtml = '';
-            if (!empty($user->getVoitures())) {
-                foreach ($user->getVoitures() as $voiture) {
+            if (!empty($covoiturage->getVoitures())) {
+                foreach ($covoiturage->getVoitures() as $voiture) {
                     $voituresHtml .= $voiture->getVitesseMax() . ' ' . $voiture->getModel() . ' ' . $voiture->getColeur() . ' ';
                 }
             }
