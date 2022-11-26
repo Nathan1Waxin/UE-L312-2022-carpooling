@@ -3,6 +3,7 @@
 use App\Controllers\UsersController;
 use App\Services\VoituresService;
 use App\Services\ReservationsService;
+use App\Services\CovoituragesService;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -34,6 +35,13 @@ echo $controller->createUser();
     <label for="reservation">Contrat(s) :</label>
     <?php foreach ($reservations as $reservation): ?>
         <?php $reservationName = $reservations->getName_client() . ' ' . $reservations->getTele_client() . ' ' . $reservations->getMail_client(); ?>
+        <input type="checkbox" name="reservations[]" value="<?php echo $reservation->getId(); ?>"><?php echo $reservationName; ?>
+        <br />
+    <?php endforeach; ?>
+    <br />
+    <label for="covoiturage">Annonce(s) :</label>
+    <?php foreach ($covoiturages as $covoiturage): ?>
+        <?php $covoiturageName = $covoiturages->getPointstart() . ' ' . $covoiturages->getPointend() . ' ' . $covoiturages->getDate() . ' ' . $covoiturages->getAvailable_place() . ' ' . $covoiturages->getPrice(); ?>
         <input type="checkbox" name="reservations[]" value="<?php echo $reservation->getId(); ?>"><?php echo $reservationName; ?>
         <br />
     <?php endforeach; ?>
