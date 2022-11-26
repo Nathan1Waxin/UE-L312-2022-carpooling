@@ -12,6 +12,8 @@ class User
     private $email;
     private $birthday;
     private $voitures;
+    private $reservations;
+    private $covoiturages;
 
     public function getId(): string
     {

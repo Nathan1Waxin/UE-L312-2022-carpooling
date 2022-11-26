@@ -12,6 +12,7 @@ class Covoiturage
     private $date;
     private $available_place;
     private $price;
+    private $voitures;
 
     // Le constructeur de la classe reservation, elle sera ensuite exécutée pour initaliser les attributs de la classe.
     // public function __construct($id,$pointstart,$pointend,$date,$available_place,$price)
