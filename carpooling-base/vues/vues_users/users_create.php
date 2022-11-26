@@ -9,6 +9,15 @@ require __DIR__ . '/vendor/autoload.php';
 
 $controller = new UsersController();
 echo $controller->createUser();
+
+$voituresService = new VoituresService();
+$voitures = $voituresService->getVoitures();
+
+$reservationsService = new ReservationsService();
+$eservations = $reservationsService->getReservations();
+
+$covoituragesService = new CovoituragesService();
+$covoiturages = $covoituragesService->getCovoiturages();
 ?>
 
 <p>Création d'un utilisateur</p>

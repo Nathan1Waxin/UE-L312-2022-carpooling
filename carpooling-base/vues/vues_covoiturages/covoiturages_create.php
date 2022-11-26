@@ -2,11 +2,18 @@
 
 use App\Controllers\CovoituragesController;
 use App\Services\ReservationsService;
+use App\Services\VoituresService;
 
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new CovoituragesController();
 echo $controller->createCovoiturage();
+
+$reservations = new ReservationsService();
+echo $reservations->createReservations();
+
+$voitures = new VoituresService();
+echo $voitures->createVoitures();
 ?>
 
 <p>Création d'une annonce de covoiturage</p>
