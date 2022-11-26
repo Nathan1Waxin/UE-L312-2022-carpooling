@@ -92,15 +92,15 @@ class UsersService
 
         $dataBaseService = new DataBaseService();
 
-        // Get relation users and cars :
+        // Get relation users and Reservation :
         $usersReservationsDTO = $dataBaseService->getUserReservations($userId);
         if (!empty($usersReservationsDTO)) {
             foreach ($usersReservationsDTO as $usersReservationDTO) {
                 $reservation = new Reservation();
                 $reservation->setId($usersReservationDTO['id']);
-                $reservation->setModel($usersReservationDTO['name_client']);
-                $reservation->setColor($usersReservationDTO['tele_client']);
-                $reservation->setVitesseMax($usersReservationDTO['mail_client']);
+                $reservation->setName_client($usersReservationDTO['name_client']);
+                $reservation->setTele_client($usersReservationDTO['tele_client']);
+                $reservation->setMail_client($usersReservationDTO['mail_client']);
                 $usersReservations[] = $reservation;
             }
         }
