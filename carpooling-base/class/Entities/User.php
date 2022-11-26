@@ -86,4 +86,16 @@ class User
 
         return $this;
     }
+
+    public function getCovoiturages(): ?array
+    {
+        return $this->covoiturages;
+    }
+
+    public function setCovoiturages(array $covoiturages)
+    {
+        $this->covoiturages = $covoiturages;
+
+        return $this;
+    }
 }
