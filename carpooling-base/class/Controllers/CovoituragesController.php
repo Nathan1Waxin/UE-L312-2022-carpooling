@@ -39,11 +39,17 @@ class CovoituragesController
             */
              // creation de la relation covoiturage et voiture :
              $isOk = true;
-             if (!empty($_POST['voitures'])) {
+            if (!empty($_POST['voitures'])) {
                  foreach ($_POST['voitures'] as $voitureId) {
                      $isOk = $covoituragesService->setCovoiturageVoiture($covoiturageId, $voitureId);
                  }
              }
+
+            if (!empty($_POST['reservations'])) {
+                foreach ($_POST['reservations'] as $reservationId) {
+                    $isOk = $usersService->setCovoiturageReservation($covoiturageId, $reservationId);
+                }
+            }
 
 
             if ($covoiturageId && $isOk) {
@@ -82,6 +88,13 @@ class CovoituragesController
             if (!empty($covoiturage->getVoitures())) {
                 foreach ($covoiturage->getVoitures() as $voiture) {
                     $voituresHtml .= $voiture->getVitesseMax() . ' ' . $voiture->getModel() . ' ' . $voiture->getColeur() . ' ';
+                }
+            }
+
+            $reservationsHtml = '';
+            if (!empty($covoiturage->getReservations())) {
+                foreach ($covoiturage->getReservations() as $reservation) {
+                    $reservationsHtml .= $reservation->getName_client() . ' ' . $reservation->getTele_client() . ' ' . $reservation->getMail_client() . ' ';
                 }
             }
 
