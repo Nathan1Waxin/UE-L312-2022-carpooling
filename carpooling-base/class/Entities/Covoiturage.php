@@ -83,4 +83,16 @@ class Covoiturage
     {
         $this->price = $price;
     }
+
+    public function getVoitures(): ?array
+    {
+        return $this->voitures;
+    }
+
+    public function setVoitures(array $voitures)
+    {
+        $this->voitures = $voitures;
+
+        return $this;
+    }
 }
