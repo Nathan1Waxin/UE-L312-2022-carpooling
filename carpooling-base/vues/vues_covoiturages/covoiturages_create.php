@@ -25,5 +25,12 @@ echo $controller->createCovoiturage();
     <label for="price">prix :</label>
     <input type="text" name="price">
     <br />
+    <label for="voiture">Voiture :</label>
+    <?php foreach ($voitures as $voiture): ?>
+        <?php $voitureName = $voiture->getModel() . ' ' . $voiture->getCouleur() . ' ' . $voiture->getViteesseMax(); ?>
+        <input type="checkbox" name="cars[]" value="<?php echo $voiture->getId(); ?>"><?php echo $voitureName; ?>
+        <br />
+    <?php endforeach; ?>
+    <br />
     <input type="submit" value="Créer une annonce de covoiturage">
 </form>
