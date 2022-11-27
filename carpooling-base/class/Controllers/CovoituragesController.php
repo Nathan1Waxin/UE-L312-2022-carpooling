@@ -18,10 +18,12 @@ class CovoituragesController
             isset($_POST['pointend']) &&
             isset($_POST['datee']) &&
             isset($_POST['available_place']) &&
-            isset($_POST['price'])) {
+            isset($_POST['price']) &&
+            isset($_POST['voitures']) &&
+            isset($_POST['reservations'])) {
             // Creation de l'annonce de covoiturage :
             $covoituragesService = new covoituragesService();
-            $isOk = $covoituragesService->setCovoiturage( 
+            $covoiturageId = $covoituragesService->setCovoiturage( 
                 null,
                 $_POST['pointstart'],
                 $_POST['pointend'],
@@ -29,6 +31,21 @@ class CovoituragesController
                 $_POST['available_place'],
                 $_POST['price']
             );
+
+            // Create the covoiturages cars relations : ajout de cette partie
+            $isOk = true;
+            if (!empty($_POST['voitures'])) {
+                foreach ($_POST['voitures'] as $voitureId) {
+                    $isOk = $covoituragesService->setCovoiturageVoiture($covoiturageId, $voitureId);
+                }
+            }
+            // Create the user reservation relations : ajout de cette partie
+            if (!empty($_POST['reservations'])) {
+                foreach ($_POST['reservations'] as $reservationId) {
+                    $isOk = $covoituragesService->setCovoiturageReservation($covoiturageId, $reservationId);
+                }
+            }
+            
             if ($isOk) {
                 $html = 'Annonce de covoiturage créé avec succès.';
             } else {
@@ -52,13 +69,28 @@ class CovoituragesController
 
         // Get html :
         foreach ($covoiturages as $covoiturage) {
+            $voituresHtml = '';
+            if (!empty($covoiturage->getVoitures())) {
+                foreach ($covoiturage->getVoitures() as $voiture) {
+                    $voituresHtml .= $voiture->getModel() . ' ' . $voiture->getCouleur() . ' ' . $voiture->getVitesseMax() . ' ';
+                }
+            }
+            $reservationsHtml = '';
+            if (!empty($covoiturage->getReservations())) {
+                foreach ($covoiturage->getReservations() as $reservation) {
+                    $reservationsHtml .= $reservation->getNameClient() . ' ' . $reservation->getTeleClient() . ' ' . $reservation->getMailClient() . ' ';
+                }
+            }
+
             $html .=
                 '#' . $covoiturage->getId() . ' ' .
                 $covoiturage->getPointstart() . ' ' .
                 $covoiturage->getPointend() . ' ' .
                 $covoiturage->getAvailableplace() . ' ' .
                 $covoiturage->getPrice() . ' ' .
-                $covoiturage->getDate()->format('d-m-Y') ;
+                $covoiturage->getDate()->format('d-m-Y')  . ' ' .
+                $voituresHtml . ' ' .
+                $reservationsHtml . '<br />';
         }
 
         return $html;
