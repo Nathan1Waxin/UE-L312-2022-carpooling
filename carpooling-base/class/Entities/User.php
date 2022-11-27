@@ -12,6 +12,8 @@ class User
     private $email;
     private $birthday;
     private $voitures;
+    private $covoiturages;
+    private $reservations;
 
     public function getId(): string
     {
@@ -73,4 +75,29 @@ class User
 
         return $this;
     }
+
+    public function getCovoiturages(): ?array
+    {
+        return $this->covoiturages;
+    }
+
+    public function setCovoiturages(array $covoiturages)
+    {
+        $this->covoiturages = $covoiturages;
+
+        return $this;
+    }
+
+    public function getReservations(): ?array
+    {
+        return $this->reservations;
+    }
+
+    public function setReservations(array $reservations)
+    {
+        $this->reservations = $reservations;
+
+        return $this;
+    }
+
 }
