@@ -136,10 +136,11 @@ class DataBaseService
         $data = [
             'userId' => $userId,
         ];
+    
         $sql = '
             SELECT c.*
             FROM voitures as c
-            LEFT JOIN users_voitures as uc ON uc.voiture_id = c.id
+            LEFT users_voitures as uc ON uc.voiture_id = c.id
             WHERE uc.user_id = :userId';
         $query = $this->connection->prepare($sql);
         $query->execute($data);

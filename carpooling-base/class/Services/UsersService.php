@@ -49,7 +49,7 @@ class UsersService
                     $user->setbirthday($date);
                 }
 
-                //ajout de ce paragraphe get cars on this user
+                //ajout de ce paragraphe
                 $voitures = $this->getUserVoitures($userDTO['id']);
                 $user->setVoitures($voitures);
                 $users[] = $user;
