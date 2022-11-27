@@ -61,3 +61,29 @@ INSERT INTO `users_voitures` (`user_id`, `voiture_id`) VALUES
 (1, 2),
 (2, 3),
 (3, 4);
+
+-- relation user-covoiturage
+CREATE TABLE users_covoiturages (
+	user_id INT NOT NULL, 
+	covoiturage_id INT NOT NULL, 
+	PRIMARY KEY(user_id, covoiturage_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `users_covoiturages` (`user_id`, `covoiturage_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(3, 4);
+
+-- relation user-reservation
+CREATE TABLE users_reservations (
+	user_id INT NOT NULL, 
+	reservation_id INT NOT NULL, 
+	PRIMARY KEY(user_id, reservation_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `users_reservations` (`user_id`, `reservation_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(3, 4);
