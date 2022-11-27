@@ -474,7 +474,7 @@ class DataBaseService
         $query->execute($data);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
-            $userReservations = $results;
+            $covoiturageReservations = $results;
         }
 
         return $covoiturageReservations;
