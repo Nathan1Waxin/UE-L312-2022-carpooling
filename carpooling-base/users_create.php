@@ -36,5 +36,19 @@ $voitures = $voituresService->getVoitures();
         <br />
     <?php endforeach; ?>
     <br />
+    <label for="covoiturages">Contrat(s) :</label>
+    <?php foreach ($covoiturages as $covoiturage): ?>
+        <?php $covoiturageName = $covoiturage->getPointstart() . ' ' . $covoiturage->getPointend() . ' ' . $covoiturage->getAvailableplace() . ' ' . $covoiturage->getDate() . ' ' . $covoiturage->getPrice(); ?>
+        <input type="checkbox" name="covoiturages[]" value="<?php echo $covoiturage->getId(); ?>"><?php echo $covoiturageName; ?>
+        <br />
+    <?php endforeach; ?>
+    <br />
+    <label for="reservations">Reservation(s) :</label>
+    <?php foreach ($reservations as $reservation): ?>
+        <?php $reservationName = $reservation->getNameClient() . ' ' . $reservation->getTeleClient() . ' ' . $reservation->getMailClient(); ?>
+        <input type="checkbox" name="reservations[]" value="<?php echo $reservation->getId(); ?>"><?php echo $reservationName; ?>
+        <br />
+    <?php endforeach; ?>
+    <br />
     <input type="submit" value="Créer un utilisateur">
 </form>
