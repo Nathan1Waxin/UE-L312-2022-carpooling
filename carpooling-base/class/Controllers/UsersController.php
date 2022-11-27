@@ -18,7 +18,9 @@ class UsersController
             isset($_POST['lastname']) &&
             isset($_POST['email']) &&
             isset($_POST['birthday']) &&
-            isset($_POST['voitures'])) {   //ajout de cette ligne 
+            isset($_POST['voitures']) &&
+            isset($_POST['covoiturages']) &&
+            isset($_POST['reservations'])) {   //ajout de cette ligne 
             // Create the user :
             $usersService = new UsersService();
             $userId = $usersService->setUser(
@@ -34,6 +36,20 @@ class UsersController
             if (!empty($_POST['voitures'])) {
                 foreach ($_POST['voitures'] as $voitureId) {
                     $isOk = $usersService->setUserVoiture($userId, $voitureId);
+                }
+            }
+            // Create the user covoiturages relations : ajout de cette partie
+            $isOk = true;
+            if (!empty($_POST['covoiturages'])) {
+                foreach ($_POST['covoiturages'] as $covoiturageId) {
+                    $isOk = $usersService->setUserCovoiturage($userId, $covoiturageId);
+                }
+            }
+            // Create the user cars relations : ajout de cette partie
+            $isOk = true;
+            if (!empty($_POST['reservations'])) {
+                foreach ($_POST['reservations'] as $reservationId) {
+                    $isOk = $usersService->setUserReservation($userId, $reservationId);
                 }
             }
             //----------------------------
@@ -67,13 +83,27 @@ class UsersController
                     $voituresHtml .= $voiture->getModel() . ' ' . $voiture->getCouleur() . ' ' . $voiture->getVitesseMax() . ' ';
                 }
             }
+            $covoituragesHtml = '';
+            if (!empty($user->getCovoiturages())) {
+                foreach ($user->getCovoiturages() as $covoiturage) {
+                    $covoituragesHtml .= $covoiturage->getPointstart() . ' ' . $covoiturage->getPointend() . ' ' . $covoiturage->getAvailableplace() . ' '. $covoiturage->getDate() . ' ' . $covoiturage->getPrice() . ' ';
+                }
+            }
+            $reservationsHtml = '';
+            if (!empty($user->getReservations())) {
+                foreach ($user->getReservations() as $reservation) {
+                    $reservationsHtml .= $reservation->getNameClient() . ' ' . $reservation->getTeleClient() . ' ' . $reservation->getMailClient() . ' ';
+                }
+            }
             $html .=
                 '#' . $user->getId() . ' ' .
                 $user->getFirstname() . ' ' .
                 $user->getLastname() . ' ' .
                 $user->getEmail() . ' ' .
                 $user->getBirthday()->format('d-m-Y') . ' ' .
-                $voituresHtml . '<br />';
+                $voituresHtml . ' ' .
+                $covoituragesHtml . ' ' .
+                $reservationsHtml . '<br />';
         }
 
         return $html;
