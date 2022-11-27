@@ -147,7 +147,7 @@ class UsersService
                 $covoiturage->setId($userCovoiturageDTO['id']);
                 $covoiturage->setPointstart($userCovoiturageDTO['pointstart']);
                 $covoiturage->setPointend($userCovoiturageDTO['pointend']);
-                $covoiturage->setAvailableplace($userCovoiturageDTO['availableplace']);
+                $covoiturage->setAvailableplace($userCovoiturageDTO['available_place']);
                 $covoiturage->setDate($userCovoiturageDTO['date']);
                 $covoiturage->setPrice($userCovoiturageDTO['price']);
                 $userCovoiturages[] = $covoiturage;
