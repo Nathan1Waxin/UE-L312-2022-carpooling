@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\User;
+use App\Entities\Voiture;
 use DateTime;
 
 class UsersService
@@ -10,19 +11,20 @@ class UsersService
     /**
      * Create or update an user.
      */
-    public function setUser(?string $id, string $firstname, string $lastname, string $email, string $birthday): bool
+    public function setUser(?string $id, string $firstname, string $lastname, string $email, string $birthday): String //avant c'était bool
     {
-        $isOk = false;
+        $userId = '';
 
         $dataBaseService = new DataBaseService();
         $birthdayDateTime = new DateTime($birthday);
         if (empty($id)) {
-            $isOk = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime);
+            $userId = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime);
         } else {
-            $isOk = $dataBaseService->updateUser($id, $firstname, $lastname, $email, $birthdayDateTime);
+            $dataBaseService->updateUser($id, $firstname, $lastname, $email, $birthdayDateTime);
+            $userId = $id;
         }
 
-        return $isOk;
+        return $userId;
     }
 
     /**
@@ -36,6 +38,7 @@ class UsersService
         $usersDTO = $dataBaseService->getUsers();
         if (!empty($usersDTO)) {
             foreach ($usersDTO as $userDTO) {
+                //get User:
                 $user = new User();
                 $user->setId($userDTO['id']);
                 $user->setFirstname($userDTO['firstname']);
@@ -45,7 +48,12 @@ class UsersService
                 if ($date !== false) {
                     $user->setbirthday($date);
                 }
+
+                //ajout de ce paragraphe
+                $voitures = $this->getUserVoitures($userDTO['id']);
+                $user->setVoitures($voitures);
                 $users[] = $user;
+                //___________________________
             }
         }
 
@@ -63,5 +71,43 @@ class UsersService
         $isOk = $dataBaseService->deleteUser($id);
 
         return $isOk;
+    }
+
+
+     /**
+     * Create relation bewteen an user and his car.
+     */
+    public function setUserVoiture(string $userId, string $voitureId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setUserVoiture($userId, $voitureId);
+
+        return $isOk;
+    }
+    /**
+     * Get cars of given user id.
+     */
+    public function getUserVoitures(string $userId): array
+    {
+        $userVoitures = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation users and cars :
+        $usersVoituresDTO = $dataBaseService->getUserVoitures($userId);
+        if (!empty($usersVoituresDTO)) {
+            foreach ($usersVoituresDTO as $userVoitureDTO) {
+                $voiture = new Voiture();
+                $voiture->setId($userVoitureDTO['id']);
+                $voiture->setModel($userVoitureDTO['model']);
+                $voiture->setCouleur($userVoitureDTO['couleur']);
+                $voiture->setVitesseMax($userVoitureDTO['vitesseMax']);
+                $userVoitures[] = $voiture;
+            }
+        }
+
+        return $userCars;
     }
 }

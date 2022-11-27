@@ -17,7 +17,8 @@ class UsersController
         if (isset($_POST['firstname']) &&
             isset($_POST['lastname']) &&
             isset($_POST['email']) &&
-            isset($_POST['birthday'])) {
+            isset($_POST['birthday'])
+            isset($_POST['voitures'])) {   //ajout de cette ligne 
             // Create the user :
             $usersService = new UsersService();
             $isOk = $usersService->setUser(
@@ -27,6 +28,15 @@ class UsersController
                 $_POST['email'],
                 $_POST['birthday']
             );
+
+            // Create the user cars relations : ajout de cette partie
+            $isOk = true;
+            if (!empty($_POST['voitures'])) {
+                foreach ($_POST['voitures'] as $voitureId) {
+                    $isOk = $usersService->setUserCar($userId, $voitureId);
+                }
+            }
+            //----------------------------
             if ($isOk) {
                 $html = 'Utilisateur créé avec succès.';
             } else {
@@ -40,6 +50,7 @@ class UsersController
     /**
      * Return the html for the read action.
      */
+                                                                        //modification de cette méthode
     public function getUsers(): string
     {
         $html = '';
@@ -50,12 +61,19 @@ class UsersController
 
         // Get html :
         foreach ($users as $user) {
+            $voituresHtml = '';
+            if (!empty($user->getVoitures())) {
+                foreach ($user->getVoitures() as $voiture) {
+                    $voituresHtml .= $voiture->getBrand() . ' ' . $voiture->getModel() . ' ' . $voiture->getColor() . ' ';
+                }
+            }
             $html .=
                 '#' . $user->getId() . ' ' .
                 $user->getFirstname() . ' ' .
                 $user->getLastname() . ' ' .
                 $user->getEmail() . ' ' .
-                $user->getBirthday()->format('d-m-Y') . '<br />';
+                $user->getBirthday()->format('d-m-Y') . ' ' .
+                $voitures . '<br />';
         }
 
         return $html;
