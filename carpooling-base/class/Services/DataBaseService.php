@@ -35,7 +35,7 @@ class DataBaseService
      */
     public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): bool
     {
-        $isOk = false;
+        $userId = '';  //changement de cette variable.
 
         $data = [
             'firstname' => $firstname,
@@ -46,8 +46,12 @@ class DataBaseService
         $sql = 'INSERT INTO users (firstname, lastname, email, birthday) VALUES (:firstname, :lastname, :email, :birthday)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
+        //rajout de cette condition
+        if ($isOk) {
+            $userId = $this->connection->lastInsertId();
+        }
 
-        return $isOk;
+        return $userId;
     }
 
     /**
@@ -103,6 +107,48 @@ class DataBaseService
         $isOk = $query->execute($data);
 
         return $isOk;
+    }
+     /**
+     * Create relation bewteen an user and his Voiture.
+     */
+    public function setUserVoiture(string $userId, string $voitureId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'voitureId' => $voitureId,
+        ];
+        $sql = 'INSERT INTO users_voitures (user_id, voiture_id) VALUES (:userId, :voitureId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Get cars of given user id.
+     */
+    public function getUserVoitures(string $userId): array
+    {
+        $userVoitures = [];
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = '
+            SELECT c.*
+            FROM voitures as c
+            LEFT JOIN users_voitures as uc ON uc.voiture_id = c.id
+            WHERE uc.user_id = :userId';
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $userVoitures = $results;
+        }
+
+        return $userVoitures;
     }
 
     // ___________________________________________________________________________________________________________

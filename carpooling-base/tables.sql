@@ -47,3 +47,17 @@ CREATE TABLE `reservations` (
   `mail_client` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ 
+
+-- relation user-voiture
+CREATE TABLE users_voitures (
+	user_id INT NOT NULL, 
+	voiture_id INT NOT NULL, 
+	PRIMARY KEY(user_id, voiture_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `users_voitures` (`user_id`, `voiture_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(3, 4);

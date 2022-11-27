@@ -17,11 +17,11 @@ class UsersController
         if (isset($_POST['firstname']) &&
             isset($_POST['lastname']) &&
             isset($_POST['email']) &&
-            isset($_POST['birthday'])
+            isset($_POST['birthday']) &&
             isset($_POST['voitures'])) {   //ajout de cette ligne 
             // Create the user :
             $usersService = new UsersService();
-            $isOk = $usersService->setUser(
+            $userId = $usersService->setUser(
                 null,
                 $_POST['firstname'],
                 $_POST['lastname'],
@@ -33,11 +33,11 @@ class UsersController
             $isOk = true;
             if (!empty($_POST['voitures'])) {
                 foreach ($_POST['voitures'] as $voitureId) {
-                    $isOk = $usersService->setUserCar($userId, $voitureId);
+                    $isOk = $usersService->setUserVoiture($userId, $voitureId);
                 }
             }
             //----------------------------
-            if ($isOk) {
+            if ($userId && $isOk) {  // ajout de $userId dans la condition
                 $html = 'Utilisateur créé avec succès.';
             } else {
                 $html = 'Erreur lors de la création de l\'utilisateur.';
@@ -64,7 +64,7 @@ class UsersController
             $voituresHtml = '';
             if (!empty($user->getVoitures())) {
                 foreach ($user->getVoitures() as $voiture) {
-                    $voituresHtml .= $voiture->getBrand() . ' ' . $voiture->getModel() . ' ' . $voiture->getColor() . ' ';
+                    $voituresHtml .= $voiture->getModel() . ' ' . $voiture->getCouleur() . ' ' . $voiture->getVitesseMax() . ' ';
                 }
             }
             $html .=
@@ -73,7 +73,7 @@ class UsersController
                 $user->getLastname() . ' ' .
                 $user->getEmail() . ' ' .
                 $user->getBirthday()->format('d-m-Y') . ' ' .
-                $voitures . '<br />';
+                $voituresHtml . '<br />';
         }
 
         return $html;
