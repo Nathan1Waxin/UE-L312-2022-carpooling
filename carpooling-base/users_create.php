@@ -2,7 +2,8 @@
 
 use App\Controllers\UsersController;
 use App\Services\VoituresService; //ajout de cette ligne
-
+use App\Services\ReservationsService;
+use App\Services\CovoituragesService;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new UsersController();
@@ -11,6 +12,10 @@ echo $controller->createUser();
 //ajout de ce paragraphe:
 $voituresService = new VoituresService();
 $voitures = $voituresService->getVoitures();
+$reservationsService = new ReservationsService();
+$reservations = $reservationService->getReservations();
+$covoituragesService = new CovoituragesService();
+$covoiturage = $covoituragesService->getCovoiturages();
 //___________________
 
 ?>

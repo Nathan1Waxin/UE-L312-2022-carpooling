@@ -148,7 +148,7 @@ class UsersService
                 $covoiturage->setPointstart($userCovoiturageDTO['pointstart']);
                 $covoiturage->setPointend($userCovoiturageDTO['pointend']);
                 $covoiturage->setAvailableplace($userCovoiturageDTO['available_place']);
-                $covoiturage->setDate($userCovoiturageDTO['date']);
+                $covoiturage->setDate($userCovoiturageDTO['datee']);
                 $covoiturage->setPrice($userCovoiturageDTO['price']);
                 $userCovoiturages[] = $covoiturage;
             }
@@ -184,9 +184,9 @@ class UsersService
             foreach ($usersReservationsDTO as $usersReservationDTO) {
                 $reservation = new Reservation();
                 $reservation->setId($usersReservationDTO['id']);
-                $reservation->setNameClient($usersReservationDTO['nameclient']);
-                $reservation->setTeleClient($usersReservationDTO['teleclient']);
-                $reservation->setMailClient($usersReservationDTO['mailclient']);
+                $reservation->setNameClient($usersReservationDTO['name_client']);
+                $reservation->setTeleClient($usersReservationDTO['tele_client']);
+                $reservation->setMailClient($usersReservationDTO['mail_client']);
                 $userReservations[] = $reservation;
             }
         }

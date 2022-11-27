@@ -39,14 +39,12 @@ class UsersController
                 }
             }
             // Create the user covoiturages relations : ajout de cette partie
-            $isOk = true;
             if (!empty($_POST['covoiturages'])) {
                 foreach ($_POST['covoiturages'] as $covoiturageId) {
                     $isOk = $usersService->setUserCovoiturage($userId, $covoiturageId);
                 }
             }
             // Create the user cars relations : ajout de cette partie
-            $isOk = true;
             if (!empty($_POST['reservations'])) {
                 foreach ($_POST['reservations'] as $reservationId) {
                     $isOk = $usersService->setUserReservation($userId, $reservationId);
