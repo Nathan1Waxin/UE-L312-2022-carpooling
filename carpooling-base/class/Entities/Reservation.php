@@ -11,6 +11,8 @@ class Reservation
     private $name_client;
     private $tele_client;
     private $mail_client;
+    private $voitures;
+    private $covoiturages;
 
     // Le constructeur de la classe Reservation, elle sera ensuite exécutée pour initaliser les attributs de la classe.
     // public function __construct($id,$name_client,$tele_client,$mail_client)
@@ -63,6 +65,30 @@ class Reservation
     public function setMailClient($mail_client) : void
     {
         $this->mail_client = $mail_client;
+    }
+
+    public function getVoitures(): ?array
+    {
+        return $this->voitures;
+    }
+
+    public function setVoitures(array $voitures)
+    {
+        $this->voitures = $voitures;
+
+        return $this;
+    }
+
+    public function getCovoiturages(): ?array
+    {
+        return $this->covoiturages;
+    }
+
+    public function setCovoiturages(array $covoiturages)
+    {
+        $this->covoiturages = $covoiturages;
+
+        return $this;
     }
 
 }
