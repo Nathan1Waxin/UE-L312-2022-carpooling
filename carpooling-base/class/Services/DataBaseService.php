@@ -152,6 +152,94 @@ class DataBaseService
         return $userVoitures;
     }
 
+    /**
+     * Create relation bewteen an user and his contrat.
+     */
+    public function setUserCovoiturage(string $userId, string $covoiturageId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'covoiturageId' => $covoiturageId,
+        ];
+        $sql = 'INSERT INTO users_covoiturages (user_id, covoiturage_id) VALUES (:userId, :covoiturageId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Get cars of given user id.
+     */
+    public function getUserCovoiturages(string $userId): array
+    {
+        $usercovoiturages = [];
+
+        $data = [
+            'userId' => $userId,
+        ];
+    
+        $sql = '
+            SELECT c.*
+            FROM covoiturages as c
+            LEFT users_covoiturages as uc ON uc.covoiturage_id = c.id
+            WHERE uc.user_id = :userId';
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $usercovoiturages = $results;
+        }
+
+        return $usercovoiturages;
+    }
+
+    /**
+     * Create relation bewteen an user and his reservation.
+     */
+    public function setUserReservation(string $userId, string $reservationId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'voitureId' => $reservationId,
+        ];
+        $sql = 'INSERT INTO users_reservations (user_id, reservation_id) VALUES (:userId, :reservationId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Get cars of given user id.
+     */
+    public function getUserReservations(string $userId): array
+    {
+        $userReservations = [];
+
+        $data = [
+            'userId' => $userId,
+        ];
+    
+        $sql = '
+            SELECT c.*
+            FROM reservations as c
+            LEFT users_reservations as uc ON uc.reservation_id = c.id
+            WHERE uc.user_id = :userId';
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $userReservations = $results;
+        }
+
+        return $userReservations;
+    }
+
     // ___________________________________________________________________________________________________________
     // ____________________________________________________Voiture________________________________________________
     /**
