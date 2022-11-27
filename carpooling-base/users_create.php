@@ -13,9 +13,9 @@ echo $controller->createUser();
 $voituresService = new VoituresService();
 $voitures = $voituresService->getVoitures();
 $reservationsService = new ReservationsService();
-$reservations = $reservationService->getReservations();
+$reservations = $reservationsService->getReservations();
 $covoituragesService = new CovoituragesService();
-$covoiturage = $covoituragesService->getCovoiturages();
+$covoiturages = $covoituragesService->getCovoiturages();
 //___________________
 
 ?>

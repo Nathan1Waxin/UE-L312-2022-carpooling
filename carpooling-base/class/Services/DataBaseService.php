@@ -336,7 +336,11 @@ class DataBaseService
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
-        return $isOk;
+        if ($isOk) {
+            $covoiturageId = $this->connection->lastInsertId();
+        }
+
+        return $covoiturageId;
     }
 
     /**
@@ -487,7 +491,7 @@ class DataBaseService
     // ____________________________________________Reservation____________________________________________________
 
      /**
-     * nouvelle réservation   
+     * nouvelle réservation
      */
 
 
@@ -527,7 +531,7 @@ class DataBaseService
     /**
      * mettre à jour une reservation
      */
-    public function updateReservation($id,$name_client,$tele_client,$mail_client): bool
+    public function updateReservation($id, $name_client, $tele_client, $mail_client): bool
     {
         $isOk = false;
 
@@ -560,5 +564,4 @@ class DataBaseService
 
         return $isOk;
     }
-
 }

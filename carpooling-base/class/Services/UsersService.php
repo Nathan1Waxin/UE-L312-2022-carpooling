@@ -58,6 +58,7 @@ class UsersService
                 $user->setCovoiturages($covoiturages);
                 $reservations = $this->getUserReservations($userDTO['id']);
                 $user->setReservations($reservations);
+
                 $users[] = $user;
                 //___________________________
             }
