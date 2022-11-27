@@ -11,6 +11,7 @@ class User
     private $lastname;
     private $email;
     private $birthday;
+    private $voitures;
 
     public function getId(): string
     {
@@ -60,5 +61,16 @@ class User
     public function setBirthday(DateTime $birthday): void
     {
         $this->birthday = $birthday;
+    }
+    public function getVoitures(): ?array
+    {
+        return $this->Voitures;
+    }
+
+    public function setVoitures(array $voitures)
+    {
+        $this->cars = $voitures;
+
+        return $this;
     }
 }
