@@ -175,7 +175,7 @@ class DataBaseService
      */
     public function getUserCovoiturages(string $userId): array
     {
-        $usercovoiturages = [];
+        $userCovoiturages = [];
 
         $data = [
             'userId' => $userId,
@@ -190,10 +190,10 @@ class DataBaseService
         $query->execute($data);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
-            $usercovoiturages = $results;
+            $userCovoiturages = $results;
         }
 
-        return $usercovoiturages;
+        return $userCovoiturages;
     }
 
     /**
