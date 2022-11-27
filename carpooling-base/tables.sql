@@ -89,8 +89,15 @@ INSERT INTO `users_reservations` (`user_id`, `reservation_id`) VALUES
 (3, 4);
 
 -- relation user-voiture
-CREATE TABLE users_voitures (
-	user_id INT NOT NULL, 
+CREATE TABLE covoiturages_voitures (
+	covoiturage_id INT NOT NULL, 
 	voiture_id INT NOT NULL, 
-	PRIMARY KEY(user_id, voiture_id)
+	PRIMARY KEY(covoiturage_id, voiture_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- relation user-reservation
+CREATE TABLE covoiturages_reservations (
+	covoiturage_id INT NOT NULL, 
+	reservation_id INT NOT NULL, 
+	PRIMARY KEY(covoiturage_id, reservation_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
