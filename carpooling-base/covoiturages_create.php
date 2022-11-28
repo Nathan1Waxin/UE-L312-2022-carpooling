@@ -13,7 +13,7 @@ echo $controller->createCovoiturage();
 $voituresService = new VoituresService();
 $voitures = $voituresService->getVoitures();
 $reservationsService = new ReservationsService();
-$reservations = $reservationService->getReservations();
+$reservations = $reservationsService ->getReservations();
 ?>
 
 <p>Création d'une annonce de covoiturage</p>
